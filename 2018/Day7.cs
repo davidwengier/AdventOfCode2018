@@ -6,9 +6,15 @@ using System.Text;
 
 namespace AdventOfCode
 {
-    internal partial class Day7
+    internal partial class Day7 : IAdventChallenge
     {
-        internal static void Part1()
+        public string Name => "Queue based";
+
+        public int Year => 2018;
+
+        public int Day => 7;
+
+        public string Part1()
         {
             var nodes = GetNodes();
 
@@ -39,7 +45,7 @@ namespace AdventOfCode
                 }
             }
 
-            Console.WriteLine(string.Join("", done));
+            return string.Join("", done);
         }
 
         private static Dictionary<char, RuleNode> GetNodes()
@@ -63,7 +69,7 @@ namespace AdventOfCode
             return nodes;
         }
 
-        internal static void Part2()
+        public string  Part2()
         {
             var nodes = GetNodes();
 
@@ -125,8 +131,7 @@ namespace AdventOfCode
                 secs++;
             }
 
-            Console.WriteLine(string.Join("", done));
-            Console.WriteLine(secs-1);
+            return string.Join("", done) + " which will take " + (secs - 1) + " seconds.";
         }
 
         [DebuggerDisplay("{PreceedingStepName} -> {StepName}")]

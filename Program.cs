@@ -1,52 +1,89 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdventOfCode
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            //Console.WriteLine("Day 1, Part 1:");
-            //Day1.Part1();
+            var challenges = from t in typeof(Program).Assembly.GetTypes()
+                             where !t.IsInterface
+                             where typeof(IAdventChallenge).IsAssignableFrom(t)
+                             select Activator.CreateInstance(t) as IAdventChallenge;
 
-            //Console.WriteLine("Day 1, Part 2:");
-            //Day1.Part2();
-
-            //Console.WriteLine("Day 2, Part 1:");
-            //Day2.Part1();
-
-            //Console.WriteLine("Day 2, Part 2:");
-            //Day2.Part2();
-
-            //Console.WriteLine("Day 3, Part 1:");
-            //Day3.Part1();
-
-            //Console.WriteLine("Day 3, Part 2:");
-            //Day3.Part2();
-
-            //Console.WriteLine("Day 4, Part 1:");
-            //Day4.Part1();
-
-            //Console.WriteLine("Day 4, Part 2:");
-            //Day4.Part2();
-
-            //Console.WriteLine("Day 5, Part 1:");
-            //Day5.Part1();
-
-            //Console.WriteLine("Day 5, Part 2:");
-            //Day5.Part2();
-
-            //Console.WriteLine("Day 6, Part 1:");
-            //Day6.Part1();
-
-            //Console.WriteLine("Day 6, Part 2:");
-            //Day6.Part2();
-
-            Console.WriteLine("Day 7, Part 1:");
-            Day7.Part1();
-
-            Console.WriteLine("Day 7, Part 2:");
-            Day7.Part2();
+            if (args.Length == 0)
+            {
+                WriteChallenges(challenges.OrderByDescending(c => c.Year).ThenByDescending(c => c.Day));
+            }
+            else
+            {
+                foreach (int year in challenges.Select(c => c.Year).Distinct().OrderBy(c => c))
+                {
+                    var thisYear = challenges.Where(c => c.Year == year);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine(year);
+                    foreach (int day in thisYear.Select(c => c.Day).Distinct().OrderBy(c => c))
+                    {
+                        WriteChallenges(thisYear.Where(c => c.Day == day));
+                    }
+                }
+            }
         }
+
+        private static void WriteChallenges(IEnumerable<IAdventChallenge> challenges)
+        {
+            string lastPart1 = null;
+            string lastPart2 = null;
+            foreach (var challenge in challenges)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"Day {challenge.Day}\n{challenge.Name}:");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"Part 1:");
+                Console.ResetColor();
+                string part1 = challenge.Part1();
+                if (lastPart1 == null)
+                {
+                    lastPart1 = part1;
+                }
+
+                WritePartOutput(lastPart1, part1);
+
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"Part 2:");
+                Console.ResetColor();
+                string part2 = challenge.Part2();
+                if (lastPart2 == null)
+                {
+                    lastPart2 = part2;
+                }
+                WritePartOutput(lastPart2, part2);
+            }
+
+            void WritePartOutput(string lastPart, string part)
+            {
+                if (lastPart.Equals(part, StringComparison.Ordinal))
+                {
+                    Console.ResetColor();
+                    Console.WriteLine(part);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Mismatch:");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("Result ");
+                    Console.ResetColor();
+                    Console.Write(part);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(" does not match previous output ");
+                    Console.ResetColor();
+                    Console.WriteLine(lastPart);
+                }
+            }
+        }
+
     }
 }
