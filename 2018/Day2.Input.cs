@@ -2,7 +2,7 @@ namespace AdventOfCode
 {
     internal partial class Day2
     {
-        private static readonly string[] _input = new string[] {
+        private readonly string[] _input = new string[] {
             "rmyxgdlihczskunpfwbgqoeybv",
             "rmyxgdlksczskunpfwbjqkeatv",
             "rmybgdxibczskunpfwbjqoeatv",

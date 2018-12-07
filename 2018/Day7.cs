@@ -48,7 +48,7 @@ namespace AdventOfCode
             return string.Join("", done);
         }
 
-        private static Dictionary<char, RuleNode> GetNodes()
+        private Dictionary<char, RuleNode> GetNodes()
         {
             var nodes = new Dictionary<char, RuleNode>();
             foreach (string rule in _input)

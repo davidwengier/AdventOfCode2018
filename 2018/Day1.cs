@@ -3,19 +3,24 @@ using System.Collections.Generic;
 
 namespace AdventOfCode
 {
-    internal partial class Day1
+    internal partial class Day1 : IAdventChallenge
     {
-        internal static void Part1()
+        public string Name => "First Attempt";
+        public int Year => 2018;
+        public int Day => 1;
+        public string Part1()
         {
             long cum = 0;
             foreach (int i in _input)
             {
                 cum += i;
             }
-            Console.WriteLine(cum);
+
+
+            return cum.ToString();
         }
 
-        internal static void Part2()
+        public string Part2()
         {
             int cum = 0;
 
@@ -31,8 +36,7 @@ namespace AdventOfCode
                     cum += i;
                     if (!seen.Add(cum))
                     {
-                        Console.WriteLine(cum);
-                        return;
+                        return cum.ToString();
                     }
                 }
             }

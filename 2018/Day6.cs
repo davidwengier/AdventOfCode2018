@@ -4,9 +4,12 @@ using System.Linq;
 
 namespace AdventOfCode
 {
-    internal partial class Day6
+    internal partial class Day6 : IAdventChallenge
     {
-        internal static void Part1()
+        public string Name => "First Attempt";
+        public int Year => 2018;
+        public int Day => 6;
+        public string Part1()
         {
             var input = _input;
 
@@ -48,9 +51,9 @@ namespace AdventOfCode
             }
 
             int max = maxes.Values.Max();
-            Console.WriteLine(max);
+            return max.ToString();
         }
-        internal static void Part2()
+        public string Part2()
         {
             var input = _input;
             var threshold = 10000;
@@ -72,7 +75,7 @@ namespace AdventOfCode
                     }
                 }
             }
-            Console.WriteLine(count);
+            return count.ToString();
         }
 
         private static int FindClosest(int i, int j, (int x, int y)[] input)

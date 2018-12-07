@@ -4,7 +4,7 @@ namespace AdventOfCode
 {
     internal partial class Day6
     {
-        private static readonly (int x, int y)[] _input_test = new (int, int)[] {
+        private readonly (int x, int y)[] _input_test = new (int, int)[] {
             (1, 1),
             (1, 6),
             (8, 3),
@@ -13,7 +13,7 @@ namespace AdventOfCode
             (8, 9)
         };
 
-        private static readonly (int x, int y)[] _input = new (int, int)[] {
+        private readonly (int x, int y)[] _input = new (int, int)[] {
             (59, 110),
             (127, 249),
             (42, 290),

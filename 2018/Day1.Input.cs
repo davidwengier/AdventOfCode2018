@@ -2,7 +2,7 @@ namespace AdventOfCode
 {
     internal partial class Day1
     {
-        private static readonly int[] _input = new int[]
+        private readonly int[] _input = new int[]
         {
             +13,
             -12,
@@ -16,7 +16,8 @@ namespace AdventOfCode
             -10,
             -9,
             -2,
-            +1,-13,
+            +1,
+            -13,
             +10,
             -7,
             -11,

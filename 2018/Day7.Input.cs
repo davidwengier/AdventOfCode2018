@@ -2,7 +2,7 @@
 {
     internal partial class Day7
     {
-        private static readonly string[] _input_test = new string[]
+        private readonly string[] _input_test = new string[]
         {
             "Step C must be finished before step A can begin.",
             "Step C must be finished before step F can begin.",
@@ -13,7 +13,7 @@
             "Step F must be finished before step E can begin."
         };
 
-        private static readonly string[] _input = new string[]
+        private readonly string[] _input = new string[]
         {
             "Step B must be finished before step K can begin.",
             "Step F must be finished before step I can begin.",

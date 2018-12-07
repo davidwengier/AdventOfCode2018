@@ -4,9 +4,12 @@ using System.Linq;
 
 namespace AdventOfCode
 {
-    internal partial class Day3
+    internal partial class Day3 : IAdventChallenge
     {
-        internal static void Part1()
+        public string Name => "First Attempt";
+        public int Year => 2018;
+        public int Day => 3;
+        public string Part1()
         {
             int[,] fabric = new int[1001, 1001];
             foreach (string claim in _input)
@@ -32,10 +35,10 @@ namespace AdventOfCode
                     }
                 }
             }
-            Console.WriteLine(count);
+            return count.ToString();
         }
 
-        internal static void Part2()
+        public string Part2()
         {
             int[,] fabric = new int[1001, 1001];
             foreach (string claim in _input)
@@ -69,10 +72,11 @@ namespace AdventOfCode
                 }
                 if (!overlaps)
                 {
-                    Console.WriteLine(piece.ID);
-                    return;
+                    return piece.ID;
                 }
             }
+
+            return null;
         }
 
         private class FabricPiece

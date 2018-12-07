@@ -4,9 +4,13 @@ using System.Linq;
 
 namespace AdventOfCode
 {
-    internal partial class Day2
+    internal partial class Day2 : IAdventChallenge
     {
-        internal static void Part1()
+        public string Name => "First Attempt";
+        public int Year => 2018;
+        public int Day => 2;
+
+        public string Part1()
         {
             int twos = 0;
             int threes = 0;
@@ -23,10 +27,10 @@ namespace AdventOfCode
                     threes++;
                 }
             }
-            Console.WriteLine(twos * threes);
+            return (twos * threes).ToString();
         }
 
-        internal static void Part2()
+        public string Part2()
         {
             foreach (string id in _input)
             {
@@ -62,17 +66,19 @@ namespace AdventOfCode
 
                     if (!tooMany)
                     {
+                        string result = "";
                         // found the two matching boxes, so output the diff by skipping the index we found
                         for (int i = 0; i < other.Length; i++)
                         {
                             if (diffIndex == i) continue;
-                            Console.Write(other[i]);
+                            result += other[i];
                         }
-                        Console.WriteLine();
-                        return;
+                        return result;
                     }
                 }
             }
+
+            return null;
         }
     }
 }

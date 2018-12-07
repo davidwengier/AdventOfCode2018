@@ -2,13 +2,13 @@ namespace AdventOfCode
 {
     internal partial class Day3
     {
-        private static readonly string[] _input_test = new string[] {
+        private readonly string[] _input_test = new string[] {
             "#1 @ 1,3: 4x4",
             "#2 @ 3,1: 4x4",
             "#3 @ 5,5: 2x2"
         };
 
-        private static readonly string[] _input = new string[] {
+        private readonly string[] _input = new string[] {
             "#1 @ 850,301: 23x12",
             "#2 @ 898,245: 15x10",
             "#3 @ 8,408: 12x27",

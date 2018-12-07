@@ -5,9 +5,12 @@ using System.Linq;
 
 namespace AdventOfCode
 {
-    internal partial class Day4
+    internal partial class Day4 : IAdventChallenge
     {
-        internal static void Part1()
+        public string Name => "First Attempt";
+        public int Year => 2018;
+        public int Day => 4;
+        public string Part1()
         {
             var events = _input.Select(s => new Event(s)).OrderBy(s => s.EventDate).ToArray();
 
@@ -87,10 +90,10 @@ namespace AdventOfCode
                     curMin = m.Key;
                 }
             }
-            Console.WriteLine(int.Parse(currBest) * curMin);
+            return (int.Parse(currBest) * curMin).ToString();
         }
 
-        internal static void Part2()
+        public string Part2()
         {
             var events = _input.Select(s => new Event(s)).OrderBy(s => s.EventDate).ToArray();
 
@@ -157,7 +160,7 @@ namespace AdventOfCode
                     currBestMin = g.Value.Item2;
                 }
             }
-            Console.WriteLine(int.Parse(currBest) * currBestMin);
+            return (int.Parse(currBest) * currBestMin).ToString();
         }
 
         private class Event

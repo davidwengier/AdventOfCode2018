@@ -64,6 +64,13 @@ namespace AdventOfCode
 
             void WritePartOutput(string lastPart, string part)
             {
+                if (part == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error:");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("No value was returned.");
+                }
                 if (lastPart.Equals(part, StringComparison.Ordinal))
                 {
                     Console.ResetColor();

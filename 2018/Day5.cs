@@ -3,15 +3,18 @@ using System.Linq;
 
 namespace AdventOfCode
 {
-    internal partial class Day5
+    internal partial class Day5 : IAdventChallenge
     {
-        internal static void Part1()
+        public string Name => "First Attempt";
+        public int Year => 2018;
+        public int Day => 5;
+        public string Part1()
         {
             int length = GetReducedLength(_input);
-            Console.WriteLine(length);
+            return length.ToString();
         }
 
-        internal static void Part2()
+        public string Part2()
         {
             int min = int.MaxValue;
             string curr = null;
@@ -25,10 +28,10 @@ namespace AdventOfCode
                     curr = c;
                 }
             }
-            Console.WriteLine(curr + " (" + min + ")");
+           return curr + " (" + min + ")";
         }
 
-        private static int GetReducedLength(string input)
+        private int GetReducedLength(string input)
         {
             bool changed = true;
             while (changed)
