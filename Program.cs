@@ -15,7 +15,9 @@ namespace AdventOfCode
 
             if (args.Length == 0)
             {
-                WriteChallenges(challenges.OrderByDescending(c => c.Year).ThenByDescending(c => c.Day));
+                int year = challenges.Max(c => c.Year);
+                int day = challenges.Where(c => c.Year == year).Max(c => c.Day);
+                WriteChallenges(challenges.Where(c => c.Year == year && c.Day == day));
             }
             else
             {
