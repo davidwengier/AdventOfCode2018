@@ -36,10 +36,6 @@ namespace AdventOfCode
 
             for (int i = 1; i < maxValue + 1; i++)
             {
-                if (i % 100000 == 0)
-                {
-                    Console.WriteLine(i);
-                }
                 if (board.Count < 2)
                 {
                     board.Add(i);

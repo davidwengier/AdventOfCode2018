@@ -28,11 +28,12 @@ namespace AdventOfCode._2018
 
         private bool PrintBoard(List<PointInfo> input)
         {
+            /*
             const int offsetX = 100;
             const int offsetY = 100;
             const int maxX = 200 + offsetX;
             const int maxY = 100 + offsetY;
-           /* if (input.Any(p => (p.X >= offsetX && p.Y >= offsetY && p.X <= maxX && p.Y <= maxY)))
+            if (input.Any(p => (p.X >= offsetX && p.Y >= offsetY && p.X <= maxX && p.Y <= maxY)))
             {
                 Console.Clear();
                 foreach (var point in input)
