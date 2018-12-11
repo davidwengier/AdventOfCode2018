@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AdventOfCode._2018
 {
@@ -17,31 +19,15 @@ namespace AdventOfCode._2018
         {
             int serialNumber = _input;
 
-            var results = new Dictionary<string, int>();
+            (string cur, int max) = CalculateMaxes(serialNumber, 3);
 
-            int gridSize = 3;
-
-            CalculateMaxes(serialNumber, results, gridSize, "");
-            return GetMax(results);
-        }
-
-        private static string GetMax(Dictionary<string, int> results)
-        {
-            int max = 0;
-            string cur = "";
-            foreach (var kvp in results)
-            {
-                if (kvp.Value > max)
-                {
-                    max = kvp.Value;
-                    cur = kvp.Key;
-                }
-            }
             return cur;
         }
 
-        private static void CalculateMaxes(int serialNumber, Dictionary<string, int> results, int gridSize, string keySuffix)
+        private static (string, int) CalculateMaxes(int serialNumber, int gridSize)
         {
+            int max = 0;
+            string cur = "";
             for (int xStart = 1; xStart <= (300 - gridSize); xStart++)
             {
                 for (int yStart = 1; yStart <= (300 - gridSize); yStart++)
@@ -60,24 +46,38 @@ namespace AdventOfCode._2018
                             powerLevel += hundreds - 5;
                         }
                     }
-                    results[$"{xStart},{yStart}{keySuffix}"] = powerLevel;
+                    if (powerLevel > max)
+                    {
+                        max = powerLevel;
+                        cur = $"{xStart},{yStart}";
+                    }
                 }
             }
+            return (cur, max);
         }
 
         public string Part2()
         {
-            int serialNumber = _input_test;
+            int serialNumber = _input;
 
-            var results = new Dictionary<string, int>();
+            var results = new ConcurrentDictionary<int, (string, int)>();
 
-            for (int gridSize = 1; gridSize <= 300; gridSize++)
+            Parallel.For(1, 301, (gridSize, _) =>
             {
+                results[gridSize] = CalculateMaxes(serialNumber, gridSize);
+            });
 
-                CalculateMaxes(serialNumber, results, gridSize, "," + gridSize);
-
+            int max = 0;
+            string cur = "";
+            foreach (var kvp in results)
+            {
+                if (kvp.Value.Item2 > max)
+                {
+                    max = kvp.Value.Item2;
+                    cur = kvp.Value.Item1 + "," + kvp.Key;
+                }
             }
-            return GetMax(results);
+            return cur;
         }
     }
 }
