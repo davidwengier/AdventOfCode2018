@@ -37,10 +37,16 @@ namespace AdventOfCode._2018
 
         private string Process(string state, Steps steps)
         {
-            if (state.IndexOf('#') < 5)
+            var firstHash = state.IndexOf('#');
+            if (firstHash < 5)
             {
                 state = "....." + state;
                 steps.Start += 5;
+            }
+            else
+            {
+                state = state.Substring(firstHash - 5);
+                steps.Start = steps.Start - (firstHash - 5);
             }
             if (state.LastIndexOf('#') > (state.Length - 5))
             {
