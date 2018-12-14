@@ -81,11 +81,24 @@ namespace AdventOfCode._2018
 
             var steps = new Steps(input);
             string state = steps.InitialState;
-            for (long i = 0; i < 50000000000; i++)
+
+            int diff = 0;
+            int lastSum = 0;
+            for (long i = 0; i < 1000; i++)
             {
                 state = Process(state, steps);
+                var sum = GetSum(steps, state);
+                diff = sum - lastSum;
+                lastSum = sum;
             }
 
+            var result = lastSum + (diff * (50000000000 - 1000));
+
+            return result.ToString();
+        }
+
+        private static int GetSum(Steps steps, string state)
+        {
             int sum = 0;
             for (int i = 0; i < state.Length; i++)
             {
@@ -94,7 +107,8 @@ namespace AdventOfCode._2018
                     sum += (i - steps.Start);
                 }
             }
-            return sum.ToString();
+
+            return sum;
         }
 
         private class Steps
