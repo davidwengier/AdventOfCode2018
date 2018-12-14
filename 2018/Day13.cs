@@ -32,47 +32,8 @@ namespace AdventOfCode._2018
 
                 one = Move(one, state[one] + 1, state.Count);
                 two = Move(two, state[two] + 1, state.Count);
-
-                //Output(state, one, two);
-                if (state.Count % 100 ==0)
-                {
-                    Console.WriteLine(state.Count);
-                }
             }
             return string.Join("", state.GetRange(_input, 10));
-        }
-
-        private void Output(List<int> state, int one, int two)
-        {
-            for (int i = 0; i < state.Count; i++)
-            {
-                if (one == i)
-                {
-                    Console.Write('(');
-                }
-                else if (two == i)
-                {
-                    Console.Write('[');
-                }
-                else
-                {
-                    Console.Write(' ');
-                }
-                Console.Write(state[i]);
-                if (one == i)
-                {
-                    Console.Write(')');
-                }
-                else if (two == i)
-                {
-                    Console.Write(']');
-                }
-                else
-                {
-                    Console.Write(' ');
-                }
-            }
-            Console.WriteLine();
         }
 
         private int Move(int start, int offset, int length)
@@ -83,7 +44,60 @@ namespace AdventOfCode._2018
 
         public string Part2()
         {
-            throw new NotImplementedException();
+            string input = _input.ToString();
+
+            List<int> state = new List<int>
+            {
+                3, 7
+            };
+            int one = 0;
+            int two = 1;
+
+            while (true)
+            {
+                int next = state[one] + state[two];
+                if (next > 9)
+                {
+                    state.Add(1);
+
+                    if (state.Count > input.Length)
+                    {
+                        var match = IsMatch(state, input);
+                        if (match)
+                        {
+                            return (state.Count - input.Length).ToString();
+                        }
+                    }
+                }
+                state.Add(next % 10);
+
+                one = Move(one, state[one] + 1, state.Count);
+                two = Move(two, state[two] + 1, state.Count);
+
+                if (state.Count > input.Length)
+                {
+                    var match = IsMatch(state, input);
+                    if (match)
+                    {
+                        return (state.Count - input.Length).ToString();
+                    }
+                }
+            }
+        }
+
+        private static bool IsMatch(List<int> state, string input)
+        {
+            bool match = true;
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (((int)(input[i] - '0')) != state[state.Count - (input.Length - i)])
+                {
+                    match = false;
+                    break;
+                }
+            }
+
+            return match;
         }
     }
 }
